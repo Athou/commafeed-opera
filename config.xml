@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets">
+	<name>CommaFeed Extension for Opera</name>
+	<description>CommaFeed Extension for Opera</description>
+	<icon src="icon_64.png"/>
+	<access origin="*"/>
+</widget>

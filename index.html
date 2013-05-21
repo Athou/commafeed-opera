@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<script>
+			window.addEventListener("load", function(){
+				var button = opera.contexts.toolbar.createItem({
+					title: "CommaFeed",
+					icon: "icon_18.png",
+					badge: {},
+					onclick: function() {
+						var tab = opera.extension.tabs.create({url: 'http://www.commafeed.com/'});
+						tab.focus();
+					}
+				});
+				opera.contexts.toolbar.addItem(button);
+				
+				var overlay = button.badge;
+				overlay.backgroundColor = "rgba(200, 0, 0, 1)";
+				overlay.color = "white";
+
+				function refresh() {
+					var url = "http://www.commafeed.com";
+				
+					if (url.lastIndexOf("/") != url.length - 1) {
+	  					url += "/";
+					}
+					
+					var xhr = new XMLHttpRequest();
+					xhr.open("GET", "http://www.commafeed.com/rest/category/unreadCount", true);
+					xhr.onreadystatechange = function() {
+						if (xhr.readyState == 4) {
+							button.badge.textContent = xhr.status;
+							var unread = JSON.parse(xhr.responseText);
+							var count = 0;
+							for ( var i = 0; i < unread.length; i++) {
+								count += unread[i].unreadCount;
+							}
+								if (count === 0)
+									count = '';
+									button.badge.textContent = count;
+						} else {
+							button.badge.textContent = "?";
+						}
+					}
+					xhr.send();
+					setTimeout(refresh(), 60000);
+				}
+				refresh();
+			}, false);
+		</script>
+	</head>
+	<body></body>
+</html>
