@@ -29,7 +29,6 @@
 					xhr.open("GET", "http://www.commafeed.com/rest/category/unreadCount", true);
 					xhr.onreadystatechange = function() {
 						if (xhr.readyState == 4) {
-							button.badge.textContent = xhr.status;
 							var unread = JSON.parse(xhr.responseText);
 							var count = 0;
 							for ( var i = 0; i < unread.length; i++) {
@@ -43,7 +42,7 @@
 						}
 					}
 					xhr.send();
-					setTimeout(refresh(), 60000);
+					setTimeout(refresh, 60000);
 				}
 				refresh();
 			}, false);
